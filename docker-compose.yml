@@ -1,0 +1,52 @@
+version: '3'
+services:
+  nginx1:
+    container_name: nginx1
+    build: './.docker/nginx/'
+    environment:
+      php_app: 'php1:9000'
+    ports:
+      - 81:80
+    volumes:
+      - './php1:/var/www/html'
+    depends_on:
+      - php1
+
+  # nginx2:
+  #   container_name: nginx2
+  #   build:
+  #     dockerfile: './.docker/nginx/'
+  #   ports:
+  #     - 82:80
+  #   volumes:
+
+  php1:
+    container_name: php1
+    build: './.docker/php/'
+    volumes:
+      - './php1:/var/www/html'
+    
+  # php2:
+  #   container_name: php2
+  #   build: './.docker/php/'
+  #   volumes:
+  #     - './php2:/var/www/html'
+  #   depends_on:
+  #     - nginx2
+      
+  # mysql:
+  #   container_name: mysql
+  #   image: mysql:5.7
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: tp
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: user
+
+# volumes:
+#   db_data: {}
