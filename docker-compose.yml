@@ -2,37 +2,48 @@ version: '3'
 services:
   nginx1:
     container_name: nginx1
-    build: './.docker/nginx/'
-    environment:
-      php_app: 'php1:9000'
+    build:
+      context: ./.docker/nginx/
+      args:
+        - CONF_FILE=default1.conf
     ports:
       - 81:80
     volumes:
-      - './php1:/var/www/html'
+      - ./php1:/var/www/html
     depends_on:
       - php1
+  
+  # laravel1:
+  #   container_name: laravel1
+  #   build:
+  #     context: ./.docker/php/
+  #   volumes:
+  #     - ./php1:/var/www/html
 
   # nginx2:
   #   container_name: nginx2
   #   build:
-  #     dockerfile: './.docker/nginx/'
+  #     context: ./.docker/nginx/
+  #     args:
+  #       - CONF_FILE=default2.conf
   #   ports:
   #     - 82:80
   #   volumes:
+  #     - ./php2:/var/www/html
+  #   depends_on:
+  #     - php2
 
   php1:
     container_name: php1
-    build: './.docker/php/'
+    build: ./.docker/php/
     volumes:
-      - './php1:/var/www/html'
+      - ./php1:/var/www/html
     
   # php2:
   #   container_name: php2
-  #   build: './.docker/php/'
+  #   build: ./.docker/php/
   #   volumes:
-  #     - './php2:/var/www/html'
-  #   depends_on:
-  #     - nginx2
+  #     - ./php2:/var/www/html
       
   # mysql:
   #   container_name: mysql
