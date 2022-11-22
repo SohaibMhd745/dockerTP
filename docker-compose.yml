@@ -11,14 +11,14 @@ services:
     volumes:
       - ./php1:/var/www/html
     depends_on:
-      - php1
+      - laravel1
   
-  # laravel1:
-  #   container_name: laravel1
-  #   build:
-  #     context: ./.docker/php/
-  #   volumes:
-  #     - ./php1:/var/www/html
+  laravel1:
+    container_name: laravel1
+    build:
+      context: ./.docker/laravel/
+    volumes:
+      - ./laravel1:/var/www/html
 
   # nginx2:
   #   container_name: nginx2
@@ -33,11 +33,11 @@ services:
   #   depends_on:
   #     - php2
 
-  php1:
-    container_name: php1
-    build: ./.docker/php/
-    volumes:
-      - ./php1:/var/www/html
+  # php1:
+  #   container_name: php1
+  #   build: ./.docker/php/
+  #   volumes:
+  #     - ./php1:/var/www/html
     
   # php2:
   #   container_name: php2
@@ -45,19 +45,19 @@ services:
   #   volumes:
   #     - ./php2:/var/www/html
       
-  # mysql:
-  #   container_name: mysql
-  #   image: mysql:5.7
-  #   volumes:
-  #     - db_data:/var/lib/mysql
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: tp
-  #     MYSQL_USER: user
-  #     MYSQL_PASSWORD: user
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
 
-# volumes:
-#   db_data: {}
+volumes:
+  db_data: {}
