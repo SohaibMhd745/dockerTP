@@ -6,6 +6,7 @@ services:
       - ./proxy:/proxy
     ports: 
       - 1506:80
+    command: node /start.js
     depends_on:
       - app1
       - app2

@@ -7,5 +7,3 @@ WORKDIR /proxy
 EXPOSE 80
 
 COPY ./package.json ./package.json
-
-ENTRYPOINT node /start.js
