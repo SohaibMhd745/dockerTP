@@ -1,6 +1,7 @@
 version: '3'
 services:
   proxy:
+    container_name: proxy
     build: ./proxy
     volumes:
       - ./proxy:/proxy
@@ -12,6 +13,7 @@ services:
       - app2
       
   app1:
+    container_name: app1
     build: ./app1
     volumes:
       - ./app1:/app
@@ -24,6 +26,7 @@ services:
       - mongo
 
   app2:
+    container_name: app2
     build: ./app2
     volumes:
       - ./app2:/app
@@ -36,6 +39,7 @@ services:
       - mongo
 
   mongo:
+    container_name: mongo
     image: mongo
     restart: always
     environment:
