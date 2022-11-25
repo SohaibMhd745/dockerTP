@@ -12,7 +12,7 @@ services:
       - app2
       
   app1:
-    image: mathcovax/ehpadjs
+    build: ./app1
     volumes:
       - ./app1:/app
     environment:
@@ -24,7 +24,7 @@ services:
       - mongo
 
   app2:
-    image: mathcovax/ehpadjs
+    build: ./app2
     volumes:
       - ./app2:/app
     environment:

@@ -7,6 +7,7 @@ client.connect().then(() => {
     db.collection("users").insertOne({name: "trop fort"}).then(() => {
         db.collection("users").find({}).toArray().then((rep) => {
             console.log(rep);
+            db.collection("users").deleteMany({});
         })
     })
 }).catch(console.log);
