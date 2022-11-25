@@ -1,5 +1,16 @@
 version: '3'
 services:
+  proxy:
+    build: ./proxy
+    volumes:
+      - ./proxy:/proxy
+    command: node main.js
+    ports: 
+      - 1506:80
+    depends_on:
+      - app1
+      - app2
+      
   app1:
     image: mathcovax/ehpadjs
     volumes:
@@ -7,6 +18,8 @@ services:
     environment:
       EHPADJS_NODEMON: "true"
       # EHPADJS_NPM_INSTALL: "true"
+    depends_on:
+      - mongo
 
   app2:
     image: mathcovax/ehpadjs
@@ -15,14 +28,8 @@ services:
     environment:
       EHPADJS_NODEMON: "true"
       # EHPADJS_NPM_INSTALL: "true"
-
-  proxy:
-    build: ./proxy
-    volumes:
-      - ./proxy:/proxy
-    command: node main.js
-    ports: 
-      - 1506:80
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo
