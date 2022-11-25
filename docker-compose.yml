@@ -1,63 +1,38 @@
 version: '3'
 services:
-  nginx1:
-    container_name: nginx1
-    build:
-      context: ./.docker/nginx/
-      args:
-        - CONF_FILE=default1.conf
-    ports:
-      - 81:80
+  app1:
+    image: mathcovax/ehpadjs
     volumes:
-      - ./php1:/var/www/html
-    depends_on:
-      - laravel1
-  
-  laravel1:
-    container_name: laravel1
-    build:
-      context: ./.docker/laravel/
-    volumes:
-      - ./laravel1:/var/www/html
-
-  # nginx2:
-  #   container_name: nginx2
-  #   build:
-  #     context: ./.docker/nginx/
-  #     args:
-  #       - CONF_FILE=default2.conf
-  #   ports:
-  #     - 82:80
-  #   volumes:
-  #     - ./php2:/var/www/html
-  #   depends_on:
-  #     - php2
-
-  # php1:
-  #   container_name: php1
-  #   build: ./.docker/php/
-  #   volumes:
-  #     - ./php1:/var/www/html
-    
-  # php2:
-  #   container_name: php2
-  #   build: ./.docker/php/
-  #   volumes:
-  #     - ./php2:/var/www/html
-      
-  mysql:
-    container_name: mysql
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
-    restart: always
-    ports:
-      - 3306:3306
+      - ./app1:/app
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tp
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
+      EHPADJS_NODEMON: "true"
+      # EHPADJS_NPM_INSTALL: "true"
+
+  app2:
+    image: mathcovax/ehpadjs
+    volumes:
+      - ./app2:/app
+    environment:
+      EHPADJS_NODEMON: "true"
+      # EHPADJS_NPM_INSTALL: "true"
+
+  proxy:
+    build: ./proxy
+    volumes:
+      - ./proxy:/proxy
+    command: node main.js
+    ports: 
+      - 1506:80
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: mongo
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongo_data:/opt/mongodb/db
 
 volumes:
-  db_data: {}
+  mongo_data: {}

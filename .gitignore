@@ -1,0 +1,6 @@
+app1/node_modules
+app1/package-lock.json
+app2/node_modules
+app2/package-lock.json
+proxy/node_modules
+proxy/package-lock.json
